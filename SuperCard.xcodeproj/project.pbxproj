@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD20349419782F8C00216DC3 /* PlayingCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = CD20349319782F8C00216DC3 /* PlayingCardView.m */; };
 		CD93DB831978275800A99865 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD93DB821978275800A99865 /* Foundation.framework */; };
 		CD93DB851978275800A99865 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD93DB841978275800A99865 /* CoreGraphics.framework */; };
 		CD93DB871978275800A99865 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD93DB861978275800A99865 /* UIKit.framework */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CD20349219782F8C00216DC3 /* PlayingCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingCardView.h; sourceTree = "<group>"; };
+		CD20349319782F8C00216DC3 /* PlayingCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingCardView.m; sourceTree = "<group>"; };
 		CD93DB7F1978275800A99865 /* SuperCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SuperCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD93DB821978275800A99865 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CD93DB841978275800A99865 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -113,6 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				CD93DB941978275800A99865 /* Main.storyboard */,
+				CD20349219782F8C00216DC3 /* PlayingCardView.h */,
+				CD20349319782F8C00216DC3 /* PlayingCardView.m */,
 				CD93DB971978275800A99865 /* SuperCardViewController.h */,
 				CD93DB981978275800A99865 /* SuperCardViewController.m */,
 				CD93DB9A1978275800A99865 /* Images.xcassets */,
@@ -251,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD93DB931978275800A99865 /* SuperCardAppDelegate.m in Sources */,
+				CD20349419782F8C00216DC3 /* PlayingCardView.m in Sources */,
 				CD93DB8F1978275800A99865 /* main.m in Sources */,
 				CD93DB991978275800A99865 /* SuperCardViewController.m in Sources */,
 			);
@@ -457,6 +463,7 @@
 				CD93DBB31978275800A99865 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CD93DBB41978275800A99865 /* Build configuration list for PBXNativeTarget "SuperCardTests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +472,7 @@
 				CD93DBB61978275800A99865 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
