@@ -25,7 +25,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     self.playingCardView.suit = @"♥️";
-    self.playingCardView.rank = 13;
+    self.playingCardView.rank = 8;
 }
 
 @end
