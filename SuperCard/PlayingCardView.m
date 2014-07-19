@@ -14,11 +14,20 @@
 
 @implementation PlayingCardView
 
+#pragma mark - Defines
+
+#define CORNER_FONT_STANDARD_HEIGHT 180.0
+#define CORNER_RADIUS 12.0
+#define PIP_HOFFSET_PERCENTAGE 0.165
+#define PIP_VOFFSET1_PERCENTAGE 0.090
+#define PIP_VOFFSET2_PERCENTAGE 0.175
+#define PIP_VOFFSET3_PERCENTAGE 0.270
+#define DEFAULT_FACE_CARD_SCALE_FACTOR 0.90
+#define PIP_FONT_SCALE_FACTOR 0.012
+
 #pragma mark - Properties
 
 @synthesize faceCardScaleFactor = _faceCardScaleFactor;
-
-#define DEFAULT_FACE_CARD_SCALE_FACTOR 0.90
 
 - (CGFloat)faceCardScaleFactor
 {
@@ -52,9 +61,6 @@
 
 #pragma mark - Drawing
 
-#define CORNER_FONT_STANDARD_HEIGHT 180.0
-#define CORNER_RADIUS 12.0
-
 - (CGFloat)cornerScaleFactor { return self.bounds.size.height / CORNER_FONT_STANDARD_HEIGHT; }
 - (CGFloat)cornerRadius { return CORNER_RADIUS * [self cornerScaleFactor]; }
 - (CGFloat)cornerOffset { return [self cornerRadius] / 3.0; }
@@ -74,19 +80,24 @@
     [[UIColor blackColor] setStroke];
     [roundedRect stroke];
     
-    NSString *imageName = [NSString stringWithFormat:@"%@%@", [self rankAsString], self.suit];
-    //NSString *imageName = @"Patrick";
-    UIImage *faceImage = [UIImage imageNamed:imageName];
-    if (faceImage) {
-        CGRect imageRect = CGRectInset(self.bounds,
-                                       self.bounds.size.width * (1.0-self.faceCardScaleFactor),
-                                       self.bounds.size.height * (1.0-self.faceCardScaleFactor));
-        [faceImage drawInRect:imageRect];
-    } else {
-        [self drawPips];
+    if (self.faceUp) {
+        NSString *imageName = [NSString stringWithFormat:@"%@%@", [self rankAsString], self.suit];
+        UIImage *faceImage = [UIImage imageNamed:imageName];
+        if (faceImage) {
+            CGRect imageRect = CGRectInset(self.bounds,
+                                           self.bounds.size.width * (1.0-self.faceCardScaleFactor),
+                                           self.bounds.size.height * (1.0-self.faceCardScaleFactor));
+            [faceImage drawInRect:imageRect];
+        } else {
+            [self drawPips];
+        }
+        
+        [self drawCorners];
+    }
+    else {
+        [[UIImage imageNamed:@"cardback"] drawInRect:self.bounds];
     }
     
-    [self drawCorners];
 }
 
 - (void)pushContextAndRotateUpsideDown
@@ -149,11 +160,6 @@
 
 #pragma mark - Pips
 
-#define PIP_HOFFSET_PERCENTAGE 0.165
-#define PIP_VOFFSET1_PERCENTAGE 0.090
-#define PIP_VOFFSET2_PERCENTAGE 0.175
-#define PIP_VOFFSET3_PERCENTAGE 0.270
-
 - (void)drawPips
 {
     if ((self.rank == 1) || (self.rank == 3) || (self.rank == 5) || (self.rank == 9)) {
@@ -185,8 +191,6 @@
     }
 }
 
-#define PIP_FONT_SCALE_FACTOR 0.012
-
 - (void)drawPipsWithHorizontalOffset:(CGFloat)hoffset
                       verticalOffset:(CGFloat)voffset
                           upsideDown:(BOOL)upsideDown
@@ -213,12 +217,22 @@
 
 - (void)drawPipsWithHorizontalOffset:(CGFloat)hoffset
                       verticalOffset:(CGFloat)voffset
-                          mirroredVertically:(BOOL)mirroredVertically
+                  mirroredVertically:(BOOL)mirroredVertically
 {
     [self drawPipsWithHorizontalOffset:hoffset verticalOffset:voffset upsideDown:NO];
     
     if (mirroredVertically) {
         [self drawPipsWithHorizontalOffset:hoffset verticalOffset:voffset upsideDown:YES];
+    }
+}
+
+#pragma mark - Gestures
+- (void)pinch:(UIPinchGestureRecognizer *)pinchGesture
+{
+    if (pinchGesture.state == UIGestureRecognizerStateChanged ||
+        pinchGesture.state == UIGestureRecognizerStateEnded) {
+        self.faceCardScaleFactor *= pinchGesture.scale;
+        pinchGesture.scale = 1.0;
     }
 }
 
